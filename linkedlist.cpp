@@ -3,6 +3,8 @@
 #include "Linkedlist.hpp"
 #include <string>
 
+//Smart pointers allow for automatic, exception safe, object management https://en.cppreference.com/w/cpp/memory#Smart_pointers
+
 //To implement a method or constructor from a header file we just need to do
 //template on the top if created using it
 //Classname<T>::Method/constructor(params){}. The <T> is for the template Types you use in the header files
@@ -128,7 +130,6 @@ void Linkedlist<T>::deleteAll() {
         //constexpr means that the const expression is run on compile time instead of run time.
         //This can save time
         //Explanation for constexpr: https://www.youtube.com/watch?v=KBny6MZJR64 AND https://www.youtube.com/watch?v=r2ZxhpSk8EA
-
         if constexpr (std::is_pointer<T>::value) {
             delete[] temp -> value;
         }
@@ -148,6 +149,9 @@ void Linkedlist<T>::deleteAll() {
 
 
 int main() {
+
+    /*
+    Example how to use this linked list with a char* data type
     Linkedlist<char*> list;
 
     for(int i = 1; i <= 1000; i++) {
@@ -161,25 +165,53 @@ int main() {
     }
 
     Node<char*>* current = list.getHead();
+    
+    while(current != nullptr) {
+        std::cout << (current -> value) << '\n' ;
+        current = current -> next;
+    }
 
-    // Linkedlist<int> list;
-    // for(int i = 1; i <= 1000; i++) {
-    //     int* x = new int(i);
-    //     list.add(i);
-    // }
+    std::cout << *list.peek() << '\n';
+    std::cout << "Size of list:\t" << list.getSize() << '\n'; 
+    list.deleteAll();
+    std::cout << "Head:\t" << list.getHead() -> value << '\n'; 
+    std::cout << "Size of list:\t" << list.getSize() << '\n'; 
+    if(list.getHead() != nullptr){
+        std::cout << list.getHead() -> value << '\n';
+    }
+    else {
+        std::cout << "Head is " << nullptr << '\n';
+    }
+    
+    */
+    
+    /*
+    
+    
+    
+    */
+    Linkedlist<int*> list;
+    for(int i = 1; i <= 1000; i++) {
+        int* x = new int(i);
+        list.add(x);
+    }
 
-    // Node<int>* current = list.getHead();
-    // while(current != nullptr) {
-    //     std::cout << (current -> value) << '\n' ;
-    //     current = current -> next;
-    // }
+    Node<int*>* current = list.getHead();
+    while(current != nullptr) {
+        std::cout << (current -> value) << '\n' ;
+        current = current -> next;
+    }
 
     //std::cout << *list.peek() << '\n';
     std::cout << "Size of list:\t" << list.getSize() << '\n'; 
     list.deleteAll();
-    // std::cout << "Head:\t" << list.getHead() -> value << '\n'; 
     std::cout << "Size of list:\t" << list.getSize() << '\n'; 
-
+    if(list.getHead() != nullptr){
+        std::cout << list.getHead() -> value << '\n';
+    }
+    else {
+        std::cout << "Head is " << nullptr << '\n';
+    }
     return 0;
 
 }
